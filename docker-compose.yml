@@ -1,0 +1,20 @@
+services:
+  insights:
+    container_name: realtime-insights
+    build:
+      context: ./insights
+      dockerfile: Dockerfile
+    ports:
+     - 3000:3000
+    env_file:
+      - ./insights/.env
+      
+  consumer:
+    container_name: realtime-consumer
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    env_file:
+      - ./consumer/.env
+    depends_on:
+      - insights
